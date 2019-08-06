@@ -1,0 +1,14 @@
+//
+//  WalletDemo.pch
+//  WalletDemo
+//
+//  Created by 徐俊 on 2019/8/6.
+//  Copyright © 2019 wallet. All rights reserved.
+//
+
+#ifndef WalletDemo_pch
+#define WalletDemo_pch
+
+#import <UIKit/UIKit.h>
+#define aaa 123
+#endif /* WalletDemo_pch */
