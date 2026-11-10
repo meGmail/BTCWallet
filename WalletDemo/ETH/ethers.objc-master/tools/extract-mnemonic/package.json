@@ -6,7 +6,7 @@
   "dependencies": {
       "aes-js": "2.1.0",
       "bip39": "2.2.0",
-      "bitcoinjs-lib": "2.3.0",
+      "bitcoinjs-lib": "5.2.1",
       "js-sha3": "0.5.7",
       "scrypt-js": "2.0.3"
   },
